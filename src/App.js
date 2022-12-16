@@ -2,12 +2,10 @@ import "./App.css";
 import React from "react";
 import Routers from "./shared/Routers";
 
-function App() {
+export default function App() {
   return (
     <>
       <Routers />
     </>
   );
 }
-
-export default App;
