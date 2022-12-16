@@ -5,6 +5,7 @@ import Login from "../components/pages/login";
 import Rolling from "../components/pages/rolling";
 import Share from "../components/pages/share";
 import SignUp from "../components/pages/signUp";
+import ShareAdd from "../components/pages/shareAdd";
 // import { Header } from "../components/layout/Header";
 import { Header } from "../components/layout/Header";
 // import Sidebar from "../components/pages/sidebar";
@@ -19,6 +20,7 @@ export default function Hompage() {
         <Route path="/rolling" element={<Rolling />} />
         <Route path="/share" element={<Share />} />
         <Route path="/signUp" element={<SignUp />} />
+        <Route path="/shareAdd" element={<ShareAdd />} />
       </Routes>
     </BrowserRouter>
   );

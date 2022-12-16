@@ -1,10 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-export default function Main() {
+export default function Share() {
   return (
     <Container>
-      <P>메인 페이지</P>
+      <P>공유 페이지</P>
+      <Link to="/shareAdd">
+        <button>작성하기</button>
+      </Link>
     </Container>
   );
 }

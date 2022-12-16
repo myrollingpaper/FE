@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export default function Main() {
+export default function SignUp() {
   return (
     <Container>
       <P>로그인 페이지</P>

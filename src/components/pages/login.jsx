@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export default function Main() {
+export default function Login() {
   return (
     <Container>
       <P>로그인 페이지</P>
@@ -15,7 +15,7 @@ export default function Main() {
         <input></input>
       </span>
       <button>로그인</button>
-      <Link to="/about">
+      <Link to="/signUp">
         <button>회원가입</button>
       </Link>
     </Container>

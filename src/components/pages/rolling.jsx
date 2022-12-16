@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function Main() {
+export default function Rolling() {
   return (
     <Container>
-      <P>메인 페이지</P>
+      <P>롤링 페이지</P>
     </Container>
   );
 }
