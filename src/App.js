@@ -1,12 +1,14 @@
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
-import Routers from "./shared/Routers";
+import Router from './shared/Router';
+
+
 
 function App() {
+
   return (
-    <>
-      <Routers />
-    </>
+      <Router />
   );
 }
 

@@ -1,8 +1,32 @@
 {
-  "todos": [
+  "boards": [
     {
-      "id": "1",
-      "title": "react"
-    }
+      "id":1,
+      "user": "강혜지",
+      "title":"spring꿀팁!",
+      "content": "가루가되어라!",
+      "img":"https://lp2.hm.com/hmgoepprod?set=source[/ec/ef/ecef9d77c56c519e24a76b83331ae2c18f73f50d.jpg],origin[dam],category[],type[LOOKBOOK],res[y],hmver[1]&call=url[file:/product/main]"
+  },
+    {
+      "id":1,
+      "user": "양승우",
+      "title":"react 매니저님이 주신 꿀팁!",
+      "content": "열심히하기",
+      "img":"https://lp2.hm.com/hmgoepprod?set=source[/ec/ef/ecef9d77c56c519e24a76b83331ae2c18f73f50d.jpg],origin[dam],category[],type[LOOKBOOK],res[y],hmver[1]&call=url[file:/product/main]"
+  },
+    {
+      "id":1,
+      "user": "장신원",
+      "title":"안보면 후회하는 리액트 공부법",
+      "content": "나 따라하기",
+      "img":"https://lp2.hm.com/hmgoepprod?set=source[/ec/ef/ecef9d77c56c519e24a76b83331ae2c18f73f50d.jpg],origin[dam],category[],type[LOOKBOOK],res[y],hmver[1]&call=url[file:/product/main]"
+  },
+    {
+      "id":1,
+      "user": "최수빈",
+      "title":"리액트 TIL",
+      "content": "링크.",
+      "img":"https://lp2.hm.com/hmgoepprod?set=source[/ec/ef/ecef9d77c56c519e24a76b83331ae2c18f73f50d.jpg],origin[dam],category[],type[LOOKBOOK],res[y],hmver[1]&call=url[file:/product/main]"
+  }
   ]
 }
