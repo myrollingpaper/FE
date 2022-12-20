@@ -8,6 +8,8 @@ import SignUp from "../components/pages/signUp";
 import ShareAdd from "../components/pages/shareAdd";
 // import { Header } from "../components/layout/Header";
 import { Header } from "../components/layout/Header";
+import ShareId from "../components/pages/shareid";
+import RollingAdd from "../components/pages/RollingAdd";
 // import Sidebar from "../components/pages/sidebar";
 
 export default function Hompage() {
@@ -16,11 +18,13 @@ export default function Hompage() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/rolling" element={<Rolling />} />
-        <Route path="/share" element={<Share />} />
-        <Route path="/signUp" element={<SignUp />} />
-        <Route path="/shareAdd" element={<ShareAdd />} />
+        <Route path="/api/users/login" element={<Login />} />
+        {/* <Route path="/api/rollingpapers" element={<Rolling />} />
+        <Route path="/api/rollingpapers/:crewId" element={<RollingAdd />} />
+        <Route path="/api/boards/main" element={<Share />} /> */}
+        <Route path="/api/users/signup" element={<SignUp />} />
+        {/* <Route path="/api/boards" element={<ShareAdd />} />
+        <Route path="/api/boards/:id" element={<ShareId />} /> */}
       </Routes>
     </BrowserRouter>
   );

@@ -26,10 +26,9 @@ export default function Share() {
   }
 
   const locationHandler = (id) => {
-    navigate(`/share/${id}`);
+    navigate(`/api/boards/${id}`);
   };
-
-  console.log(todos.id);
+  console.log("asdf", todos[0].createdAd);
   return (
     <Container>
       <P>공유 페이지</P>

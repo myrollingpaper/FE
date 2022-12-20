@@ -1,38 +1,72 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { __userLogin } from "../redux/modules/LoginSlice";
+// {}로 감싸주기(actions 함수 써야하니까)
 
-export default function Login() {
+const LogIn = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const initialState = {
+    userid: "",
+    password: "",
+  };
+  const [login, setLogin] = useState(initialState);
+  const onChangeHandler = (event) => {
+    const { name, value } = event.target;
+    setLogin({ ...login, [name]: value });
+  };
+
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+    const obj = {
+      id: 1,
+      //임시
+      userid: login.userid,
+      password: login.password,
+    };
+    dispatch(__userLogin(obj));
+  };
+
   return (
-    <Container>
-      <P>로그인 페이지</P>
-      <span>
-        <text>로그인:</text>
-        <input></input>
-      </span>
-      <span>
-        <text>회원가입:</text>
-        <input></input>
-      </span>
-      <button>로그인</button>
-      <Link to="/signUp">
-        <button>회원가입</button>
-      </Link>
-    </Container>
+    <div>
+      <div>
+        <h2>DoDoong</h2>
+        <p>로그인</p>
+        <div>
+          <div>
+            <input
+              type="text"
+              name="userid"
+              value={login.userid}
+              placeholder="아이디"
+              onChange={onChangeHandler}
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              name="password"
+              value={login.password}
+              placeholder="비밀번호"
+              onChange={onChangeHandler}
+            />
+          </div>
+        </div>
+        <button onClick={onSubmitHandler}>로그인</button>
+        <button
+          type="submit"
+          onClick={() => {
+            navigate("/signup");
+          }}
+        >
+          <span>회원이 아니신가요? &nbsp;&nbsp;</span>가입하기
+        </button>
+      </div>
+    </div>
   );
-}
+};
 
-const Container = styled.div`
-  display: flex;
-`;
-
-const P = styled.p`
-  font-size: 16px;
-  font-weight: bold;
-  display: inline-block;
-  margin: 0;
-  text-align: center;
-  letter-spacing: 0.1px;
-  line-height: 1.5;
-  color: black;
-`;
+export default LogIn;

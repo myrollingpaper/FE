@@ -1,47 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Comments from "../layout/Comment";
 import {
-  __getTodos,
-  __deletePost,
-  __editPost,
-} from "../../redux/modules/todosSlice";
+  __getRollings,
+  __deleteRollings,
+  __editRollings,
+} from "../../redux/modules/RollingSlice";
 
-export default function ShareId(props) {
+export default function RollingId(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoading, error, todos } = useSelector((state) => state.todos);
-  console.log("sadf", todos);
+  const { isLoading, error, rollings } = useSelector((state) => state.rollings);
   const propsParam = useParams();
+  const id = propsParam.id;
   // 수정하기
   const [edit, setEdit] = useState({
     id: propsParam.id,
     title: "",
     content: "",
-    imgUrl: "",
-    createAt: "",
   });
-  //수정 토글 관련 use
+  //수정하기 토글
   const [toggle, setToggle] = useState(false);
-  //수정 핸들러
+  //수정하기 핸들러
   const onClickEditHandler = () => {
-    dispatch(__editPost(edit));
+    dispatch(__editRollings(edit));
   };
-  //수정 토글 delete
-  const todosDelete = () => {
-    dispatch(__deletePost(id));
-    navigate(`/api/boards/main`);
+  // delete
+  const rollingsDelete = () => {
+    dispatch(__deleteRollings(id));
+    navigate(`/share`);
   };
+  const detailData = rollings.filter((obj) => obj.id == id);
 
-  const id = propsParam.id;
-
-  const detailData = todos.filter((obj) => obj.id == id);
-  console.log("ddd", detailData);
   useEffect(() => {
-    dispatch(__getTodos());
+    dispatch(__getRollings());
   }, [dispatch]);
 
   if (isLoading) {
@@ -59,13 +52,9 @@ export default function ShareId(props) {
     <>
       <div>
         <div>
-          <div>
-            <img src={detailData[0].imgUrl} />
-          </div>
           <span>{detailData[0].title}</span>
           <span>{detailData[0].content}</span>
-          <span>{detailData[0].imgUrl}</span>
-          <button onClick={() => todosDelete(id)}>삭제하기</button>
+          <button onClick={() => rollingsDelete(id)}>삭제하기</button>
           <button onClick={editToggleHandler}>수정하기</button>
         </div>
       </div>
@@ -93,21 +82,9 @@ export default function ShareId(props) {
             }}
             placeholder="내용을 입력해주세요"
           />
-          <input
-            type="text"
-            name="imgUrl"
-            onChange={(event) => {
-              setEdit({
-                ...edit,
-                imgUrl: event.target.value,
-              });
-            }}
-            placeholder="imgUrl을 입력해주세요"
-          />
           <button onClick={onClickEditHandler}>수정완료</button>
         </div>
       ) : null}
-      <Comments comment={detailData[0].comment} />
     </>
   );
 }
