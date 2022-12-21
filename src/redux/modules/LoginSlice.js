@@ -20,12 +20,10 @@ export const __userLogin = createAsyncThunk(
   // login : reducer name, 경로 정해줘야
   async (payload, thunkAPI) => {
     try {
-      console.log(payload);
       const data = await instance.post(`/users/login`, payload);
       const Access_Token = data.headers.authorization;
-      console.log(Access_Token);
-      console.log(data);
       localStorage.setItem("token", Access_Token);
+      window.location.replace('/');
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       if (400 < error.data.status && error.data.status < 500) {

@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "../components/layout/Home";
+// import Home from "../components/layout/Home";
 import LogIn from "../components/pages/login";
 import Share from "../components/pages/share";
 import SignUp from "../components/pages/signUp";
@@ -13,10 +13,10 @@ export default function Hompage() {
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* <Route path="/" element={<Home />} /> */}
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/boards">
+        <Route path="/">
           <Route index element={<Share />} />
           <Route path="write" element={<ShareAdd />} />
           <Route path=":id" element={<ShareId />} />

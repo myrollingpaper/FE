@@ -26,14 +26,14 @@ export default function Share() {
   }
 
   const locationHandler = (id) => {
-    navigate(`/boards/${id}`);
+    navigate(`/${id}`);
   };
 
   return (
     <Container>
       <P>공유 페이지</P>
       <StUploadContainer>
-        <Link to="/boards/write">
+        <Link to="/write">
           <button>작성하기</button>
         </Link>
         <div className="upload_list_container">
