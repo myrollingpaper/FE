@@ -13,15 +13,15 @@ import { useEffect } from "react";
 const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { account } = useSelector((state) => state.data.data);
-  console.log("account", account);
+  // const { account } = useSelector((state) => state.data.data);
+  // console.log("account", account);
   const [join, setJoin] = useState({
-    userid: "",
+    username: "",
     nickname: "",
     password: "",
   });
   const obj = {
-    userid: join.userid,
+    username: join.username,
     nickname: join.nickname,
     password: join.password,
   };
@@ -60,23 +60,7 @@ const SignUp = () => {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    // if (!useridCheck.test(obj.userid)) {
-    //   return alert("아이디 양식에 맞춰주세요");
-    // }
-    // if (!usernicknameCheck.test(obj.nickname)) {
-    //   return alert("닉네임 양식에 맞춰주세요");
-    // }
-    // if (!passwordCheck.test(obj.password)) {
-    //   return alert("비밀번호 양식에 맞춰주세요");
-    // }
-    // if (obj.userid === "" || obj.userid === undefined) {
-    //   return alert("빈칸을 입력해주세요.");
-    // }
-
-    // if (obj.nickname === "" || obj.nickname === undefined) {
-    //   return alert("빈칸을 입력해주세요.");
-    // }
-    dispatch(__userSignUp(obj));
+    dispatch(__userSignUp({ obj, navigate }));
   };
   // useEffect(() => {
   //   if (account !== undefined) {
@@ -104,11 +88,11 @@ const SignUp = () => {
           <span>ID:</span>
           <input
             type="text"
-            name="userid"
+            name="username"
             onChange={(event) => {
               setJoin({
                 ...join,
-                userid: event.target.value,
+                username: event.target.value,
               });
             }}
             placeholder="아이디는 영문자로 시작하는 영문자 또는 숫자 6~20자"

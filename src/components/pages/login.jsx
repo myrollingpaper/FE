@@ -10,7 +10,7 @@ const LogIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const initialState = {
-    userid: "",
+    username: "",
     password: "",
   };
   const [login, setLogin] = useState(initialState);
@@ -23,7 +23,7 @@ const LogIn = () => {
   const onSubmitHandler = (event) => {
     event.preventDefault();
     const obj = {
-      userid: login.userid,
+      username: login.username,
       password: login.password,
     };
     dispatch(__userLogin(obj));
@@ -37,8 +37,8 @@ const LogIn = () => {
           <div>
             <input
               type="text"
-              name="userid"
-              value={login.userid}
+              name="username"
+              value={login.username}
               placeholder="아이디"
               onChange={onChangeHandler}
             />

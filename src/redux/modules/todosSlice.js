@@ -1,41 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import instance from "../../shared/api";
 
-// const instance = axios.create({
-//   baseURL: `http://jisung.shop:8080`,
-//   Bearer: `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMSIsImF1dGgiOiJVU0VSIiwiZXhwIjoxNjcxMDgxMTEzLCJpYXQiOjE2NzEwNzc1MTN9.IpXI8Re_VkJ0N8zhrzjdJZ1x1C3TYrC_xZkcLgdQl3I`,
-// });
 const initialState = {
-  todos: [
-    {
-      id: 1,
-      nickname: "jaeyeong",
-      title: "ㅁㄴㅇㅁㄴㅇ",
-      content: "ㅁㄴㅇㅁㄴㅇ",
-      imgUrl:
-        "https://modo-phinf.pstatic.net/20160601_1/1464753900299CUs6Q_JPEG/mosaMJbhKd.jpeg?type=w1100",
-      createdAt: "2022-12-16T18:05:33.177063",
-      comment: [
-        {
-          id: 1,
-          nickname: "jisung",
-          content: "hello",
-          createdAt: "2022-12-19T18:05:33.177063",
-          modifiedAt: "2022-12-19T20:05:33.177063",
-        },
-      ],
-      isLoading: false,
-      error: null,
-    },
-  ],
+  posts: [],
+  isLoading: false,
+  error: null,
 };
 
 // 우리가 추가한 Thunk 함수
-export const __getTodos = createAsyncThunk(
-  "todos/getTodos",
+export const __getPost = createAsyncThunk(
+  "posts/getposts",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get("http://localhost:3001/boards");
+      const data = await instance.get("/boards");
       console.log(data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -45,11 +22,11 @@ export const __getTodos = createAsyncThunk(
 );
 
 export const __addPost = createAsyncThunk(
-  "todos/addPost",
+  "posts/addPost",
   async (payload, thunkAPI) => {
     try {
       console.log(payload);
-      const data = await axios.post("http://localhost:3001/boards", payload);
+      const data = await instance.post("/boards", payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -61,7 +38,7 @@ export const __deletePost = createAsyncThunk(
   "posts/deletePost",
   async (payload, ThunkAPI) => {
     try {
-      await axios.delete(`http://localhost:3001/boards/${payload}`);
+      await instance.delete(`/boards/${payload}`);
       return "삭제 완료";
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
@@ -73,15 +50,13 @@ export const __editPost = createAsyncThunk(
   "posts/editPost",
   async (payload, thunkAPI) => {
     try {
-      await axios.patch(`http://localhost:3001/boards/${payload.id}`, {
+      await instance.patch(`/boards/${payload.id}`, {
         id: payload.id,
         title: payload.title,
         content: payload.content,
         imgUrl: payload.imgUrl,
       });
-      const data = await axios.get(
-        `http://localhost:3001/boards/show/${payload.id}`
-      );
+      const data = await instance.get(`/boards/${payload.id}`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       alert("로그인이 필요합니다.");
@@ -91,20 +66,20 @@ export const __editPost = createAsyncThunk(
   }
 );
 
-export const todosSlice = createSlice({
-  name: "todos",
+export const postsSlice = createSlice({
+  name: "posts",
   initialState,
   reducers: {},
   extraReducers: {
     //받기
-    [__getTodos.pending]: (state) => {
+    [__getPost.pending]: (state) => {
       state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
     },
-    [__getTodos.fulfilled]: (state, action) => {
+    [__getPost.fulfilled]: (state, action) => {
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.todos = action.payload; // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
+      state.posts = action.payload; // Store에 있는 posts에 서버에서 가져온 posts를 넣습니다.
     },
-    [__getTodos.rejected]: (state, action) => {
+    [__getPost.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
       state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
     },
@@ -114,7 +89,7 @@ export const todosSlice = createSlice({
     },
     [__deletePost.fulfilled]: (state, action) => {
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.todos = action.payload; // Store에 있는 posts에 서버에서 가져온 posts를 넣습니다.
+      state.posts = action.payload; // Store에 있는 posts에 서버에서 가져온 posts를 넣습니다.
     },
     [__deletePost.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
@@ -136,5 +111,5 @@ export const todosSlice = createSlice({
   },
 });
 
-export const { editPost, deletePost, getTodos, addPost } = todosSlice.actions;
-export default todosSlice.reducer;
+export const { editPost, deletePost, getPost, addPost } = postsSlice.actions;
+export default postsSlice.reducer;

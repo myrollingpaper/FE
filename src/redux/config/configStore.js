@@ -4,7 +4,7 @@ import { configureStore } from "@reduxjs/toolkit";
 /**
  * import 해온 것은 slice.reducer 입니다.
  */
-import todos from "../modules/todosSlice";
+import posts from "../modules/todosSlice";
 import comment from "../modules/CommentSlice";
 import login from "../modules/LoginSlice";
 
@@ -17,7 +17,7 @@ import login from "../modules/LoginSlice";
  */
 const store = configureStore({
   // reducer: { todos, comment ,LogIn},
-  reducer: { login },
+  reducer: { login, posts },
   devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -15,21 +15,17 @@ export default function ShareAdd() {
   // const [content, setContent] = useState("");
   // const [fileImage, setFileImage] = useState("");
   const [todos, setTodos] = useState({
-    id: 0,
     title: "",
     content: "",
-    imgUrl: "",
-    createdAt: "",
+    // path: "",
   });
   console.log(todos);
   const [prevImg, setPrevImg] = useState("");
   // const [timer, setTimer] = useState({ createdAt: "" });
   const obj = {
-    id: todos.id,
     title: todos.title,
     content: todos.content,
-    imgUrl: todos.imgUrl,
-    createdAt: todos.createdAt,
+    // path: todos.path,
   };
   console.log(obj);
   //input값
@@ -43,32 +39,34 @@ export default function ShareAdd() {
       return alert("모든 항목을 입력해주세요.");
     }
     dispatch(__addPost(obj));
-    navigate(`/api/boards/main`);
+    // navigate(`/boards`);
     setTodos({
       title: "",
       content: "",
-      imgUrl: "",
+      // path: "",
     });
   };
-  // 사진 등록 및 미리보기
-  const postUrl = () => {
-    if (obj.imgUrl === "" || obj.imgUrl === undefined) {
-      return alert("URL을 입력해주세요!");
-    } else {
-      setPrevImg(obj.imgUrl);
-      alert("등록이 완료되었습니다.");
-    }
-  };
+  console.log(todos);
+  // // 사진 등록 및 미리보기
+  // const postUrl = () => {
+  //   if (obj.imgUrl === "" || obj.imgUrl === undefined) {
+  //     return alert("URL을 입력해주세요!");
+  //   } else {
+  //     setPrevImg(obj.imgUrl);
+  //     alert("등록이 완료되었습니다.");
+  //   }
+  // };
   //현재시간
-  const date = new Date();
-  format(date, "yy-MM-dd");
-  console.log(format);
+  const date = 1;
+  //  new Date();
+  // format(date, "yy-MM-dd");
+  // console.log(format);
   return (
     <>
       <Container>
         <P>공유 작성 페이지</P>
         <div>
-          <div>
+          {/* <div>
             <img src={prevImg} />
           </div>
           <div>
@@ -88,7 +86,7 @@ export default function ShareAdd() {
               />
               <button onClick={postUrl}>등록완료</button>
             </div>
-          </div>
+          </div> */}
         </div>
         <input
           type="text"

@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Comments from "../layout/Comment";
 import {
-  __getTodos,
+  __getPost,
   __deletePost,
   __editPost,
 } from "../../redux/modules/todosSlice";
@@ -41,7 +41,7 @@ export default function ShareId(props) {
   const detailData = todos.filter((obj) => obj.id == id);
   console.log("ddd", detailData);
   useEffect(() => {
-    dispatch(__getTodos());
+    dispatch(__getPost());
   }, [dispatch]);
 
   if (isLoading) {

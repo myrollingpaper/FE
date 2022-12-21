@@ -14,7 +14,7 @@ const Navbar = () => {
     navigate("/login");
   };
   const goToBoards = () => {
-    navigate("/main");
+    navigate("/boards");
   };
 
   return (

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { __getTodos } from "../../redux/modules/todosSlice";
+import { __getPost } from "../../redux/modules/todosSlice";
 import Card from "./Card";
 
 //조회 할려면 dispatch get을 가져와서 id를 map을 돌려서
@@ -11,11 +11,11 @@ import Card from "./Card";
 export default function Share() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoading, error, todos } = useSelector((state) => state.todos);
-  console.log(todos);
+  const { isLoading, error, posts } = useSelector((state) => state.posts);
+  console.log(posts);
 
   useEffect(() => {
-    dispatch(__getTodos());
+    dispatch(__getPost());
   }, [dispatch]);
 
   if (isLoading) {
@@ -26,18 +26,18 @@ export default function Share() {
   }
 
   const locationHandler = (id) => {
-    navigate(`/api/boards/${id}`);
+    navigate(`/boards/${id}`);
   };
-  console.log("asdf", todos[0].createdAd);
+
   return (
     <Container>
       <P>공유 페이지</P>
       <StUploadContainer>
-        <Link to="/shareAdd">
+        <Link to="/boards/write">
           <button>작성하기</button>
         </Link>
         <div className="upload_list_container">
-          {todos?.map((todo) => {
+          {posts?.map((todo) => {
             return (
               <div key={todo.id}>
                 <Card todo={todo} locationHandler={locationHandler} />
