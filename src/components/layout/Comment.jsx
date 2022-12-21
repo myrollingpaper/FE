@@ -5,6 +5,7 @@ import {
   __addComment,
   __deleteComment,
   __getComment,
+  __editComment,
 } from "../../redux/modules/CommentSlice";
 import styled from "styled-components";
 
@@ -13,21 +14,22 @@ export default function Comment(props) {
   const { id } = useParams();
   console.log(id);
   const [comment, setComment] = useState({
-    // id: 1,
-    // nickname: "",
+    id: 1,
     content: "",
     // createdAt: "",
     // modifiedAt: "",
+    // nickname: "",
   });
+  const [toggle, setToggle] = useState(false);
   console.log(",sss", props);
   const dispatch = useDispatch("");
   const comments = useSelector((state) => state.comments.comments);
   const obj = {
-    // id: comment.id,
-    // nickname: comment.nickname,
+    id: comment.id,
     content: comment.content,
     // createdAt: comment.createdAt,
     // modifiedAt: comment.modifiedAt,
+    // nickname: comment.nickname,
   };
   // const onChangeInputHandler = (event) => {
   //   const { name, value } = event.target;
@@ -63,6 +65,13 @@ export default function Comment(props) {
     dispatch(__getComment());
   }, [dispatch]);
 
+  const onClickEditHandler = () => {
+    dispatch(__editComment(comment));
+  };
+  //수정하기 누르면 댓글 수정 창 출력
+  const editToggleHandler = () => {
+    toggle ? setToggle(false) : setToggle(true);
+  };
   return (
     <>
       <div>
@@ -93,10 +102,29 @@ export default function Comment(props) {
               <button onClick={() => onDeleteButton(comment.id)}>
                 삭제하기
               </button>
+              <button onClick={editToggleHandler}>수정하기</button>
             </div>
           );
         })}
       </div>
+      {toggle ? (
+        <div>
+          <input
+            placeholder="(100자 이내로 입력해주세요)"
+            type="text"
+            name="comment"
+            value={comment.comment}
+            onChange={(event) => {
+              setComment({
+                ...comment,
+                comment: event.target.value,
+              });
+            }}
+            maxLength={100}
+          />
+          <button onClick={onClickEditHandler}>수정완료</button>
+        </div>
+      ) : null}
     </>
   );
 }

@@ -61,12 +61,17 @@ export const __editComment = createAsyncThunk(
   "comments/editcomments",
   async (payload, thunkAPI) => {
     try {
-      await instance.patch(`/boards/${payload.id}`, {
-        id: payload.id,
-        content: payload.content,
-        // imgUrl: payload.imgUrl,
-      });
-      const data = await instance.get(`/boards/${payload.id}`);
+      await instance.patch(
+        `/boards/${payload.id}/comments/${payload.commentid}`,
+        {
+          id: payload.id,
+          content: payload.content,
+          // imgUrl: payload.imgUrl,
+        }
+      );
+      const data = await instance.get(
+        `/boards/${payload.id}/comments/${payload.commentid}`
+      );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       alert("로그인이 필요합니다.");
