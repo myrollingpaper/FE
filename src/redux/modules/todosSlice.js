@@ -28,9 +28,24 @@ export const __addPost = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       console.log(payload);
-      const data = await instance.post(`/boards`, payload);
+      const formData = new FormData();
+      const json = JSON.stringify({
+        title: payload.title,
+        content: payload.content
+      })
+      const blob = new Blob([json], {
+        type: 'application/json'
+      })
+      formData.append('requestDto', blob);
+      payload.image && formData.append('image', payload.image);
+      const data = await instance.post(`/boards`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
+      console.log(error);
       return thunkAPI.rejectWithValue(error);
     }
   }
