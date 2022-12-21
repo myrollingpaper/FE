@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import instance from "instance";
+import instance from "../../shared/api";
 
 //초기값 설정
 const initialState = {

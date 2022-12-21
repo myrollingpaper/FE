@@ -13,10 +13,10 @@ export default function Hompage() {
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* <Route path="/" element={<Home />} /> */}
         <Route path="/login" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/boards">
+        <Route path="/">
           <Route index element={<Share />} />
           <Route path="write" element={<ShareAdd />} />
           <Route path=":id" element={<ShareId />} />

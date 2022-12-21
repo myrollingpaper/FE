@@ -8194,11 +8194,6 @@ react-refresh@^0.11.0:
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.11.0.tgz"
   integrity sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A==
 
-react-refresh@^0.14.0:
-  version "0.14.0"
-  resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.14.0.tgz"
-  integrity sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==
-
 react-router-dom@^6.4.5:
   version "6.5.0"
   resolved "https://registry.npmjs.org/react-router-dom/-/react-router-dom-6.5.0.tgz"
