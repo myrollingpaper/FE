@@ -12,7 +12,7 @@ export default function Share() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoading, error, posts } = useSelector((state) => state.posts);
-  console.log(posts);
+  const { isLogin } = useSelector(state => state.login);
 
   useEffect(() => {
     dispatch(__getPost());
@@ -29,13 +29,18 @@ export default function Share() {
     navigate(`/${id}`);
   };
 
+  const routeToWrite = () => {
+    console.log(isLogin);
+    if(isLogin) navigate('/write');
+    else alert('로그인을해야 작성이 가능합니다.');
+    
+  }
+
   return (
     <Container>
       <P>공유 페이지</P>
       <StUploadContainer>
-        <Link to="/write">
-          <button>작성하기</button>
-        </Link>
+        <button onClick={routeToWrite} >작성하기</button>
         <div className="upload_list_container">
           {posts?.map((todo) => {
             return (

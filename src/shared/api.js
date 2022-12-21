@@ -37,6 +37,6 @@ const errorInterceptor = (error) => {
   return Promise.reject(error);
 };
 
-// instance.interceptors.response.use(resInterceptor, errorInterceptor);
+instance.interceptors.response.use(resInterceptor, errorInterceptor);
 
 export default instance;

@@ -37,7 +37,7 @@ export const __addPost = createAsyncThunk(
         type: 'application/json'
       })
       formData.append('requestDto', blob);
-      payload.image && formData.append('image', payload.image);
+      formData.append('image', payload.image);
       const data = await instance.post(`/boards`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'

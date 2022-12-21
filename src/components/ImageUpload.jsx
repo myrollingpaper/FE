@@ -17,6 +17,7 @@ function ImageUpload({setImage}) {
       .then(function (resultBlob){
         file = new File([resultBlob], file.name.split('.')[0]+".jpg",{type:"image/jpeg", lastModified:new Date().getTime()});
         setImage(file);
+
       })
     } else {
       const type = file.type.split('/');
@@ -27,13 +28,7 @@ function ImageUpload({setImage}) {
       setImage(file);
     }
   }
-  // function handleApi() {
-  //   const formData = new FormData();
-  //   formData.append("image", image); // 타이틀, content, 이미지 키값
-  //   axios.post("http://localhost:3001/api/boards", formData).then((res) => {
-  //     console.log(res);
-  //   });
-  // }
+
   return (
     <div>
       <input type="file" ref={fileInput} name="file" onChange={handleImage} />
@@ -42,5 +37,3 @@ function ImageUpload({setImage}) {
   );
 }
 export default ImageUpload;
-
-//axios multi part form data

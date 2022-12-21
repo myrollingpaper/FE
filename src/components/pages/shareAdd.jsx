@@ -18,7 +18,7 @@ export default function ShareAdd() {
     // path: "",
   });
   const [prevImg, setPrevImg] = useState();
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     console.log(image);
@@ -31,7 +31,7 @@ export default function ShareAdd() {
   };
   //추가하기 버튼
   const onSumitHandler = () => {
-    if (todos.title.trim() === "" || todos.content.trim() === "" || !image) {
+    if (todos.title.trim() === "" || todos.content.trim() === "") {
       return alert("모든 항목을 입력해주세요.");
     }
 

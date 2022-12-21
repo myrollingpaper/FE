@@ -25,6 +25,7 @@ const LogIn = () => {
     const obj = {
       username: login.username,
       password: login.password,
+      navigate: navigate
     };
     dispatch(__userLogin(obj));
   };
