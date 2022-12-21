@@ -5,7 +5,14 @@ import axios from "axios";
 import { getCookie, setCookie, delCookie } from "../../cookie/cookie";
 
 const initialState = {
-  admin: [],
+  account: [
+    {
+      id: 1,
+      userid: "abcd1234",
+      password: "abcd1234",
+      nickname: "abcd1234",
+    },
+  ],
   isLoading: false,
   error: null,
 };
@@ -15,7 +22,7 @@ const headers = {
 };
 
 export const __userLogin = createAsyncThunk(
-  "admin/userLogin",
+  "account/userLogin",
   // login : reducer name, 경로 정해줘야
   async (payload, thunkAPI) => {
     try {
@@ -56,11 +63,12 @@ export const __userLogout = createAsyncThunk(
 );
 
 export const __checkId = createAsyncThunk(
-  "admin/checkId",
+  "account/checkId",
   // type
   async (payload, thunkAPI) => {
+    console.log(payload);
     try {
-      const data = await axios.post(`http://localhost:3001/checkid`, {
+      const data = await axios.post(`http://localhost:3001/login`, {
         userid: payload,
       });
       return thunkAPI.fulfillWithValue(data.data);
@@ -71,7 +79,7 @@ export const __checkId = createAsyncThunk(
 );
 
 export const __checkName = createAsyncThunk(
-  "admin/checkName",
+  "account/checkName",
   async (payload, thunkAPI) => {
     try {
       const data = await axios.post(`http://localhost:3001/checkname`, {
@@ -86,10 +94,12 @@ export const __checkName = createAsyncThunk(
 );
 
 export const __userSignUp = createAsyncThunk(
-  "admin/userSignUp",
+  "account/userSignUp",
   async (payload, thunkAPI) => {
+    console.log(payload);
     try {
-      const data = await axios.post(`http://localhost:3001/signup`, payload);
+      const data = await axios.post(`http://localhost:3001/account`, payload);
+      console.log(data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -98,7 +108,7 @@ export const __userSignUp = createAsyncThunk(
 );
 
 export const LoginSlice = createSlice({
-  name: "admin",
+  name: "account",
   initialState,
   reducers: {},
   extraReducers: {
@@ -108,7 +118,7 @@ export const LoginSlice = createSlice({
     [__userLogin.fulfilled]: (state, action) => {
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
       state.isSuccess = false;
-      state.admin = action.payload; //
+      state.account = action.payload; //
     },
     [__userLogin.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
@@ -161,7 +171,7 @@ export const LoginSlice = createSlice({
     [__userSignUp.fulfilled]: (state, action) => {
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
       state.isSuccess = false;
-      state.admin = action.payload; //
+      state.account = action.payload; //
     },
     [__userSignUp.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
@@ -172,6 +182,7 @@ export const LoginSlice = createSlice({
 });
 
 // 액션크리에이터는 컴포넌트에서 사용하기 위해 export 하고
-export const { userLogin, userSignUp, userSignUpGet } = LoginSlice.actions;
+export const { userLogin, userSignUp, userSignUpGet, checkId } =
+  LoginSlice.actions;
 // reducer 는 configStore에 등록하기 위해 export default 합니다.
 export default LoginSlice.reducer;
