@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import instance from "instance";
+import instance from "../../shared/api";
 
 //초기값 설정
 const initialState = {
@@ -56,6 +56,26 @@ export const __deleteComment = createAsyncThunk(
     }
   }
 );
+
+export const __editComment = createAsyncThunk(
+  "comments/editcomments",
+  async (payload, thunkAPI) => {
+    try {
+      await instance.patch(`/boards/${payload.id}`, {
+        id: payload.id,
+        content: payload.content,
+        // imgUrl: payload.imgUrl,
+      });
+      const data = await instance.get(`/boards/${payload.id}`);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      alert("로그인이 필요합니다.");
+      window.location.replace("/");
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 //extraRecucers
 export const commentSlice = createSlice({
   name: "comments",
