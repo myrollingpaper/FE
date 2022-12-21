@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../components/layout/Home";
 import LogIn from "../components/pages/login";
@@ -6,14 +6,14 @@ import LogIn from "../components/pages/login";
 import SignUp from "../components/pages/signUp";
 // import ShareAdd from "../components/pages/shareAdd";
 // import { Header } from "../components/layout/Header";
-import { Header } from "../components/layout/Header";
+import Navbar from "../components/layout/Navbar";
 // import ShareId from "../components/pages/shareid";
 // import Sidebar from "../components/pages/sidebar";
 
 export default function Hompage() {
   return (
     <BrowserRouter>
-      <Header />
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LogIn />} />

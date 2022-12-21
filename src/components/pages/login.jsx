@@ -1,112 +1,71 @@
 import React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { __userLogin } from "../../redux/modules/LoginSlice";
+// {}로 감싸주기(actions 함수 써야하니까)
 
-function LogIn({ setAuthenticate }) {
+const LogIn = () => {
   const navigate = useNavigate();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      username: data.get("username"),
-      password: data.get("password"),
-    });
-    setAuthenticate(true);
-    navigate("/");
+  const dispatch = useDispatch();
+  const initialState = {
+    userid: "",
+    password: "",
+  };
+  const [login, setLogin] = useState(initialState);
+  console.log("로그인", login);
+  const onChangeHandler = (event) => {
+    const { name, value } = event.target;
+    setLogin({ ...login, [name]: value });
   };
 
-  const theme = createTheme();
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+    const obj = {
+      userid: login.userid,
+      password: login.password,
+    };
+    dispatch(__userLogin(obj));
+  };
 
   return (
     <div>
-      <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Box
-            sx={{
-              marginTop: 8,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              로그인
-            </Typography>
-            <Box
-              component="form"
-              onSubmit={(event) => handleSubmit(event)}
-              noValidate
-              sx={{ mt: 1 }}
-            >
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="username"
-                label="Username"
-                name="username"
-                autoComplete="username"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              {/* <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              /> */}
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Sign In
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <StLink href="#" variant="body2">
-                    회원탈퇴
-                  </StLink>
-                </Grid>
-                <Grid item>
-                  <StLink to={`/signup`} variant="body2">
-                    {"회원가입"}
-                  </StLink>
-                </Grid>
-              </Grid>
-            </Box>
-          </Box>
-        </Container>
-      </ThemeProvider>
-      );
+      <div>
+        <h2>로그인</h2>
+        <div>
+          <div>
+            <input
+              type="text"
+              name="userid"
+              value={login.userid}
+              placeholder="아이디"
+              onChange={onChangeHandler}
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              name="password"
+              value={login.password}
+              placeholder="비밀번호"
+              onChange={onChangeHandler}
+            />
+          </div>
+        </div>
+        <button onClick={onSubmitHandler}>로그인</button>
+        <button>로그인</button>
+        <button
+          type="submit"
+          onClick={() => {
+            navigate("/signup");
+          }}
+        >
+          회원가입
+        </button>
+      </div>
     </div>
   );
-}
+};
 
 export default LogIn;
-
-const StLink = styled(Link)`
-  text-decoration: none;
-`;
