@@ -21,9 +21,7 @@ export const __getComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       console.log(payload);
-      const data = await axios.get(
-        `http://localhost:3001/boards/${payload.id}/comments/${payload.commentid}`
-      );
+      const data = await axios.get(`http://localhost:3001/boards`);
       return thunkAPI.fulfillWithValue(data.data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -36,10 +34,7 @@ export const __addComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       // console.log(payload);
-      const data = await axios.post(
-        `http://localhost:3001/commentList`,
-        payload
-      );
+      const data = await axios.post(`http://localhost:3001/boards`, payload);
       return thunkAPI.fulfillWithValue(data.data.data);
     } catch (error) {
       // alert("");
@@ -54,7 +49,9 @@ export const __deleteComment = createAsyncThunk(
   "comments/deletecomment",
   async (payload, thunkAPI) => {
     try {
-      await axios.delete(`http://localhost:3001/commentList/${payload.id}`);
+      await axios.delete(
+        `http://localhost:3001/boards/${payload.id}/comments/${payload.commentid}`
+      );
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       // alert("로그인이 필요합니다.");

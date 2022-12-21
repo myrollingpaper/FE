@@ -13,12 +13,22 @@ export default function Comment(props) {
   const { id } = useParams();
   console.log(id);
   const [comment, setComment] = useState({
-    comment: "",
+    id: 1,
+    nickname: "",
+    content: "",
+    createdAt: "",
+    modifiedAt: "",
   });
   console.log(",sss", props);
   const dispatch = useDispatch("");
   const commentList = useSelector((state) => state.commentList.commentList);
-
+  const obj = {
+    id: comment.id,
+    nickname: comment.nickname,
+    content: comment.content,
+    createdAt: comment.createdAt,
+    modifiedAt: comment.modifiedAt,
+  };
   // const onChangeInputHandler = (event) => {
   //   const { name, value } = event.target;
   //   setComment({

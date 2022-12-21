@@ -1,45 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { getCookie, setCookie, delCookie } from "../../cookie/cookie";
 
 const initialState = {
   account: [],
   isLoading: false,
   error: null,
 };
-// const params = {
-//   key: process.env.REACT_APP_ACCOUNT,
-// };
-// const SERVICE_URL = params.key
-
-// const headers = {
-//   'Content-Type' : 'application/json',
-//   'Access_Token' : getCookie('Access_Token')
-// }
 
 export const __userLogin = createAsyncThunk(
   "account/userLogin",
   // login : reducer name, 경로 정해줘야
   async (payload, thunkAPI) => {
     try {
+      console.log(payload);
       const data = await axios.post(`http://localhost:3001/login`, payload);
-      // const Access_Token = data.headers.access_token;
-      // const refreshToken = data.headers["refresh-token"];
-      if (data.status === 200 || data.status === 201) {
-        // setCookie("Access_Token", Access_Token);
-        // window.localStorage.setItem("refreshToken", refreshToken);
-        setCookie("nickname", data.data.data);
-        alert("로그인 성공");
-        window.location.replace("/movielist");
-      }
-
-      return thunkAPI.fulfillWithValue(payload);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      // if (400 < error.data.status && error.data.status < 500) {
-      //   window.location.reload();
-      //   alert("로그인 실패")
-      // }
       return thunkAPI.rejectWithValue(error);
     }
   }
