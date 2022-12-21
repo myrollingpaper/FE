@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getCookie, setCookie, delCookie } from "../../cookie/cookie";
+// import { getCookie, setCookie, delCookie } from "../../cookie/cookie";
 import instance from "../../shared/api";
 
 const initialState = {
@@ -23,7 +23,7 @@ export const __userLogin = createAsyncThunk(
       const data = await instance.post(`/users/login`, payload);
       const Access_Token = data.headers.authorization;
       localStorage.setItem("token", Access_Token);
-      window.location.replace('/');
+      window.location.replace("/");
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       if (400 < error.data.status && error.data.status < 500) {
@@ -110,7 +110,7 @@ export const LoginSlice = createSlice({
       state.isSuccess = false;
       state.account = action.payload.nickname;
       console.log(action.payload);
-      alert(action.payload.msg); //
+      alert(action.payload.msg);
     },
     [__userLogin.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.

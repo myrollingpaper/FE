@@ -7,8 +7,6 @@ const initialState = {
   error: null,
 };
 
-const token = localStorage.getItem("token");
-
 // 우리가 추가한 Thunk 함수
 export const __getPost = createAsyncThunk(
   "posts/getposts",
@@ -31,17 +29,17 @@ export const __addPost = createAsyncThunk(
       const formData = new FormData();
       const json = JSON.stringify({
         title: payload.title,
-        content: payload.content
-      })
+        content: payload.content,
+      });
       const blob = new Blob([json], {
-        type: 'application/json'
-      })
-      formData.append('requestDto', blob);
-      payload.image && formData.append('image', payload.image);
+        type: "application/json",
+      });
+      formData.append("requestDto", blob);
+      payload.image && formData.append("image", payload.image);
       const data = await instance.post(`/boards`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          "Content-Type": "multipart/form-data",
+        },
       });
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {

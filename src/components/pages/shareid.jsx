@@ -31,7 +31,7 @@ export default function ShareId(props) {
   //수정 토글 delete
   const postsDelete = () => {
     dispatch(__deletePost(id));
-    navigate(`/boards`);
+    navigate(`/`);
   };
   //id 지정
   const id = propsParam.id;
