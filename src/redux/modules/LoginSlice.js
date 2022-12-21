@@ -13,6 +13,7 @@ const initialState = {
   ],
   isLoading: false,
   error: null,
+  isLogin: false,
 };
 
 export const __userLogin = createAsyncThunk(
@@ -20,10 +21,15 @@ export const __userLogin = createAsyncThunk(
   // login : reducer name, 경로 정해줘야
   async (payload, thunkAPI) => {
     try {
-      const data = await instance.post(`/users/login`, payload);
+      const data = await instance.post(`/users/login`, {username:payload.username, password:payload.password});
       const Access_Token = data.headers.authorization;
       localStorage.setItem("token", Access_Token);
+<<<<<<< HEAD
       window.location.replace("/");
+=======
+      payload.navigate('/');
+      // window.location.replace('/');
+>>>>>>> 66b4de2c787eea8c6489ddf79365e70d4eb07b6b
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       if (400 < error.data.status && error.data.status < 500) {
@@ -109,6 +115,7 @@ export const LoginSlice = createSlice({
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
       state.isSuccess = false;
       state.account = action.payload.nickname;
+      state.isLogin = true;
       console.log(action.payload);
       alert(action.payload.msg);
     },
