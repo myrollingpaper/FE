@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -12,22 +12,18 @@ export default function ShareAdd() {
   //변경할 수 있다.
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const [title, setTitle] = useState("");
-  // const [content, setContent] = useState("");
-  // const [fileImage, setFileImage] = useState("");
   const [todos, setTodos] = useState({
     title: "",
     content: "",
     // path: "",
   });
-  console.log(todos);
-  const [prevImg, setPrevImg] = useState("");
-  const obj = {
-    title: todos.title,
-    content: todos.content,
-    // path: todos.path,
-  };
-  console.log(obj);
+  const [prevImg, setPrevImg] = useState();
+  const [image, setImage] = useState();
+
+  useEffect(() => {
+    console.log(image);
+  }, [image])
+
   //input값
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -35,23 +31,30 @@ export default function ShareAdd() {
   };
   //추가하기 버튼
   const onSumitHandler = () => {
-    if (todos.title.trim() === "" || todos.content.trim() === "") {
+    if (todos.title.trim() === "" || todos.content.trim() === "" || !image) {
       return alert("모든 항목을 입력해주세요.");
     }
-    dispatch(__addPost(obj));
+
+    console.log(todos, image);
+
+    dispatch(__addPost({
+      title: todos.title,
+      content: todos.content,
+      image: image
+    }));
     // navigate(`/boards`);
-    setTodos({
-      title: "",
-      content: "",
-      // path: "",
-    });
+    // setTodos({
+    //   title: "",
+    //   content: "",
+    //   // path: "",
+    // });
   };
-  console.log(todos);
+
   return (
     <>
       <Container>
         <P>공유 작성 페이지</P>
-        <form>
+        {/* <form> */}
           <input
             type="text"
             name="title"
@@ -66,7 +69,7 @@ export default function ShareAdd() {
             onChange={onChangeHandler}
             placeholder="내용을 입력해주세요"
           />
-          <ImageUpload/>
+          <ImageUpload setImage={setImage}/>
           {/* <ImageUpload /> */}
           <button
             onClick={(e) => {
@@ -75,7 +78,7 @@ export default function ShareAdd() {
           >
             추가하기
           </button>
-        </form>
+        {/* </form> */}
       </Container>
     </>
   );
