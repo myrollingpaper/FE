@@ -54,7 +54,7 @@ const LogIn = () => {
           </div>
         </div>
         <button onClick={onSubmitHandler}>로그인</button>
-        <button>로그인</button>
+
         <button
           type="submit"
           onClick={() => {

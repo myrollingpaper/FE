@@ -13,21 +13,21 @@ export default function Comment(props) {
   const { id } = useParams();
   console.log(id);
   const [comment, setComment] = useState({
-    id: 1,
-    nickname: "",
+    // id: 1,
+    // nickname: "",
     content: "",
-    createdAt: "",
-    modifiedAt: "",
+    // createdAt: "",
+    // modifiedAt: "",
   });
   console.log(",sss", props);
   const dispatch = useDispatch("");
-  const commentList = useSelector((state) => state.commentList.commentList);
+  const comments = useSelector((state) => state.comments.comments);
   const obj = {
-    id: comment.id,
-    nickname: comment.nickname,
+    // id: comment.id,
+    // nickname: comment.nickname,
     content: comment.content,
-    createdAt: comment.createdAt,
-    modifiedAt: comment.modifiedAt,
+    // createdAt: comment.createdAt,
+    // modifiedAt: comment.modifiedAt,
   };
   // const onChangeInputHandler = (event) => {
   //   const { name, value } = event.target;
@@ -49,7 +49,7 @@ export default function Comment(props) {
       comment: "",
     });
   };
-  console.log(commentList);
+  console.log(comments);
   console.log(comment);
 
   //삭제하기

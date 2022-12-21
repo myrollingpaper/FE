@@ -1,15 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import instance from "instance";
 
 //초기값 설정
 const initialState = {
-  comment: [
+  comments: [
     {
-      id: 1,
-      nickname: "jisung",
       content: "hello",
-      createdAt: "2022-12-19T18:05:33.177063",
-      modifiedAt: "2022-12-19T20:05:33.177063",
     },
   ],
   isLoading: false,
@@ -17,11 +13,11 @@ const initialState = {
 };
 //가져오기
 export const __getComment = createAsyncThunk(
-  "commentList/getcomment",
+  "comments/getcomment",
   async (payload, thunkAPI) => {
     try {
       console.log(payload);
-      const data = await axios.get(`http://localhost:3001/boards`);
+      const data = await instance.get(`/boards`);
       return thunkAPI.fulfillWithValue(data.data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -30,11 +26,11 @@ export const __getComment = createAsyncThunk(
 );
 //서버에 보내서 추가하기
 export const __addComment = createAsyncThunk(
-  "commentList/addcomment",
+  "comments/addcomment",
   async (payload, thunkAPI) => {
     try {
       // console.log(payload);
-      const data = await axios.post(`http://localhost:3001/boards`, payload);
+      const data = await instance.post(`/boards`, payload);
       return thunkAPI.fulfillWithValue(data.data.data);
     } catch (error) {
       // alert("");
@@ -49,8 +45,8 @@ export const __deleteComment = createAsyncThunk(
   "comments/deletecomment",
   async (payload, thunkAPI) => {
     try {
-      await axios.delete(
-        `http://localhost:3001/boards/${payload.id}/comments/${payload.commentid}`
+      await instance.delete(
+        `/boards/${payload.id}/comments/${payload.commentid}`
       );
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
@@ -62,7 +58,7 @@ export const __deleteComment = createAsyncThunk(
 );
 //extraRecucers
 export const commentSlice = createSlice({
-  name: "comment",
+  name: "comments",
   initialState,
   extraReducers: {
     [__getComment.pending]: (state) => {
@@ -71,10 +67,12 @@ export const commentSlice = createSlice({
     [__getComment.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.comments = action.payload;
+      alert(action.payload.msg);
     },
     [__getComment.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+      alert(action.payload.msg);
     },
 
     //추가
@@ -84,10 +82,12 @@ export const commentSlice = createSlice({
     [__addComment.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.comments = action.payload;
+      alert(action.payload.msg);
     },
     [__addComment.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+      alert(action.payload.msg);
     },
 
     //삭제
@@ -99,11 +99,13 @@ export const commentSlice = createSlice({
       state.comments = state.comments.filter(
         (item) => item.commentid !== action.payload.id
       );
+      alert(action.payload.msg);
       // 아이디값이 두개가 들어갔으므로 (payload에 두 개) 특정 아이디값을 지칭해줘야한다.
     },
     [__deleteComment.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+      alert(action.payload.msg);
     },
   },
 });

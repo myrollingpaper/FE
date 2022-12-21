@@ -15,10 +15,6 @@ const initialState = {
   error: null,
 };
 
-const headers = {
-  Access_Token: getCookie("Access_Token"),
-};
-
 export const __userLogin = createAsyncThunk(
   "account/userLogin",
   // login : reducer name, 경로 정해줘야
