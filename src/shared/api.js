@@ -30,8 +30,8 @@ const resInterceptor = (response) => {
 
 const errorInterceptor = (error) => {
   if (error.response.status === 401) {
-    alert('토큰이 만료되었습니다. 다시 로그인 해주세요.')
-    window.location.reload('/login');
+    alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');
+    window.location.replace('/login');
   }
 
   return Promise.reject(error);
