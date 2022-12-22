@@ -3,7 +3,7 @@ import instance from "../../shared/api";
 
 //초기값 설정
 const initialState = {
-  comments: [
+  commentList: [
     {
       content: "hello",
     },
@@ -14,7 +14,7 @@ const initialState = {
 
 //가져오기
 export const __getComment = createAsyncThunk(
-  "comments/getcomment",
+  "commentList/getcomment",
   async (payload, thunkAPI) => {
     try {
       console.log(payload);
@@ -28,7 +28,7 @@ export const __getComment = createAsyncThunk(
 
 //서버에 보내서 추가하기
 export const __addComment = createAsyncThunk(
-  "comments/addcomment",
+  "commentList/addcomment",
   async (payload, thunkAPI) => {
     try {
       // console.log(payload);
@@ -44,7 +44,7 @@ export const __addComment = createAsyncThunk(
 
 //삭제하기
 export const __deleteComment = createAsyncThunk(
-  "comments/deletecomment",
+  "commentList/deletecomment",
   async (payload, thunkAPI) => {
     try {
       await instance.delete(
@@ -60,7 +60,7 @@ export const __deleteComment = createAsyncThunk(
 );
 
 export const __editComment = createAsyncThunk(
-  "comments/editcomments",
+  "commentList/editcomments",
   async (payload, thunkAPI) => {
     try {
       await instance.patch(
@@ -85,7 +85,7 @@ export const __editComment = createAsyncThunk(
 
 //extraRecucers
 export const commentSlice = createSlice({
-  name: "comments",
+  name: "commentList",
   initialState,
   extraReducers: {
     [__getComment.pending]: (state) => {
