@@ -11,6 +11,7 @@ const initialState = {
   isLoading: false,
   error: null,
 };
+
 //가져오기
 export const __getComment = createAsyncThunk(
   "comments/getcomment",
@@ -24,6 +25,7 @@ export const __getComment = createAsyncThunk(
     }
   }
 );
+
 //서버에 보내서 추가하기
 export const __addComment = createAsyncThunk(
   "comments/addcomment",

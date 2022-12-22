@@ -22,7 +22,7 @@ export default function ShareAdd() {
 
   useEffect(() => {
     console.log(image);
-  }, [image])
+  }, [image]);
 
   //input값
   const onChangeHandler = (e) => {
@@ -37,17 +37,19 @@ export default function ShareAdd() {
 
     console.log(todos, image);
 
-    dispatch(__addPost({
-      title: todos.title,
-      content: todos.content,
-      image: image
-    }));
-    // navigate(`/boards`);
-    // setTodos({
-    //   title: "",
-    //   content: "",
-    //   // path: "",
-    // });
+    dispatch(
+      __addPost({
+        title: todos.title,
+        content: todos.content,
+        image: image,
+      })
+    );
+    navigate(`/`);
+    setTodos({
+      title: "",
+      content: "",
+      // path: "",
+    });
   };
 
   return (
@@ -55,29 +57,29 @@ export default function ShareAdd() {
       <Container>
         <P>공유 작성 페이지</P>
         {/* <form> */}
-          <input
-            type="text"
-            name="title"
-            value={todos.title}
-            onChange={onChangeHandler}
-            placeholder="제목을 입력해주세요"
-          />
-          <input
-            type="text"
-            name="content"
-            value={todos.content}
-            onChange={onChangeHandler}
-            placeholder="내용을 입력해주세요"
-          />
-          <ImageUpload setImage={setImage}/>
-          {/* <ImageUpload /> */}
-          <button
-            onClick={(e) => {
-              onSumitHandler();
-            }}
-          >
-            추가하기
-          </button>
+        <input
+          type="text"
+          name="title"
+          value={todos.title}
+          onChange={onChangeHandler}
+          placeholder="제목을 입력해주세요"
+        />
+        <input
+          type="text"
+          name="content"
+          value={todos.content}
+          onChange={onChangeHandler}
+          placeholder="내용을 입력해주세요"
+        />
+        <ImageUpload setImage={setImage} />
+        {/* <ImageUpload /> */}
+        <button
+          onClick={(e) => {
+            onSumitHandler();
+          }}
+        >
+          추가하기
+        </button>
         {/* </form> */}
       </Container>
     </>

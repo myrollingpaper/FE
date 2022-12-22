@@ -23,7 +23,7 @@ export default function Comment(props) {
   const [toggle, setToggle] = useState(false);
   console.log(",sss", props);
   const dispatch = useDispatch("");
-  const comments = useSelector((state) => state.comments.comments);
+  const commentList = useSelector((state) => state.commentList.commentList);
   const obj = {
     id: comment.id,
     content: comment.content,
@@ -51,7 +51,7 @@ export default function Comment(props) {
       comment: "",
     });
   };
-  console.log(comments);
+  console.log(commentList);
   console.log(comment);
 
   //삭제하기

@@ -69,7 +69,7 @@ export const __editPost = createAsyncThunk(
         id: payload.id,
         title: payload.title,
         content: payload.content,
-        // imgUrl: payload.imgUrl,
+        // image: payload.image,
       });
       const data = await instance.get(`/boards/${payload.id}`);
       return thunkAPI.fulfillWithValue(data.data);
