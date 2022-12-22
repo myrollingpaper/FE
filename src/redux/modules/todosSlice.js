@@ -5,6 +5,7 @@ const initialState = {
   posts: [],
   isLoading: false,
   error: null,
+  isLogin: false,
 };
 
 // 우리가 추가한 Thunk 함수
@@ -25,7 +26,6 @@ export const __addPost = createAsyncThunk(
   "posts/addPost",
   async (payload, thunkAPI) => {
     try {
-      console.log(payload);
       const formData = new FormData();
       const json = JSON.stringify({
         title: payload.title,
@@ -41,7 +41,7 @@ export const __addPost = createAsyncThunk(
           "Content-Type": "multipart/form-data",
         },
       });
-      return thunkAPI.fulfillWithValue(data.data);
+      return thunkAPI.fulfillWithValue(data.data, window.location.reload());
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(error);
@@ -51,28 +51,41 @@ export const __addPost = createAsyncThunk(
 
 export const __deletePost = createAsyncThunk(
   "posts/deletePost",
-  async (payload, ThunkAPI) => {
+  async (payload, thunkAPI) => {
     try {
       await instance.delete(`/boards/${payload}`);
-      return "삭제 완료";
+      return window.location.reload();
+      // "삭제 완료";
+      // thunkAPI.fulfillWithValue({
+      //   msg: payload.msg,
+      //   navigate: payload.navigate,
+      // });
     } catch (error) {
-      return ThunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
+
 //수정
 export const __editPost = createAsyncThunk(
   "posts/editPost",
   async (payload, thunkAPI) => {
     try {
-      await instance.patch(`/boards/${payload.id}`, {
-        id: payload.id,
+      const json = JSON.stringify({
         title: payload.title,
         content: payload.content,
-        // image: payload.image,
       });
-      const data = await instance.get(`/boards/${payload.id}`);
-      return thunkAPI.fulfillWithValue(data.data);
+      // const config = {
+      //   "Content-Type": "application/json",
+      // };
+      console.log("payload", payload);
+      console.log("payload.id", payload.id);
+      const data = await instance.patch(`/boards/${payload.id}`, json, {
+        headers: {
+          "Content-Type": "application/json",
+        }, //headers에 직접 명시를 해줘야된다(중괄호에 담기)
+      });
+      return thunkAPI.fulfillWithValue(data.data, window.location.reload());
     } catch (error) {
       alert("로그인이 필요합니다.");
       window.location.replace("/");
@@ -93,12 +106,10 @@ export const postsSlice = createSlice({
     [__getPost.fulfilled]: (state, action) => {
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
       state.posts = action.payload; // Store에 있는 posts에 서버에서 가져온 posts를 넣습니다.
-      alert(action.payload.msg);
     },
     [__getPost.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
       state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
-      alert(action.payload.msg);
     },
     //삭제
     [__deletePost.pending]: (state) => {
@@ -106,13 +117,14 @@ export const postsSlice = createSlice({
     },
     [__deletePost.fulfilled]: (state, action) => {
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.posts = action.payload; // Store에 있는 posts에 서버에서 가져온 posts를 넣습니다.
-      alert(action.payload.msg);
+      state.posts = action.payload;
+      state.isLogin = true; // Store에 있는 posts에 서버에서 가져온 posts를 넣습니다.
+      alert("삭제 완료!");
+      // action.payload.navigate("/");
     },
     [__deletePost.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
-      alert(action.payload.msg);
+      // state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
     },
     //수정
     [__editPost.pending]: (state) => {
@@ -120,14 +132,13 @@ export const postsSlice = createSlice({
     },
     [__editPost.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.movies = action.payload;
-      alert(action.payload.msg);
+      state.isLogin = true;
+      state.posts = action.payload;
+      alert("수정 완료!");
     },
-
     [__editPost.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
-      alert(action.payload.msg);
     },
   },
 });

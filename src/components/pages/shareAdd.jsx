@@ -15,9 +15,9 @@ export default function ShareAdd() {
   const [todos, setTodos] = useState({
     title: "",
     content: "",
-    // path: "",
+    path: "",
   });
-  const [prevImg, setPrevImg] = useState();
+  const [prevImg, setPrevImg] = useState("");
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function ShareAdd() {
     setTodos({
       title: "",
       content: "",
-      // path: "",
+      path: "",
     });
   };
 

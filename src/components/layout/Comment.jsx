@@ -13,7 +13,7 @@ export default function Comment(props) {
   //아이디 값 새로 배정
   const { id } = useParams();
   console.log(id);
-  const [comment, setComment] = useState({
+  const [commentList, setCommentList] = useState({
     id: 1,
     content: "",
     // createdAt: "",
@@ -23,10 +23,10 @@ export default function Comment(props) {
   const [toggle, setToggle] = useState(false);
   console.log(",sss", props);
   const dispatch = useDispatch("");
-  const comments = useSelector((state) => state.comments.comments);
+  const List = useSelector((state) => state.commentList.commentList);
   const obj = {
-    id: comment.id,
-    content: comment.content,
+    id: List.id,
+    content: List.content,
     // createdAt: comment.createdAt,
     // modifiedAt: comment.modifiedAt,
     // nickname: comment.nickname,
@@ -42,17 +42,17 @@ export default function Comment(props) {
   //추가하기
   const onAddCommentHandler = (event) => {
     event.preventDefault();
-    if (comment.comment.trim() === "") {
+    if (commentList.content.trim() === "") {
       return alert("모든 항목을 입력해주세요.");
     }
-    dispatch(__addComment({ id, comment }));
+    dispatch(__addComment({ id, commentList }));
 
-    setComment({
+    setCommentList({
       comment: "",
     });
   };
-  console.log(comments);
-  console.log(comment);
+  console.log("commentList", commentList);
+  console.log(commentList);
 
   //삭제하기
   const onDeleteButton = (id) => {
@@ -66,7 +66,7 @@ export default function Comment(props) {
   }, [dispatch]);
 
   const onClickEditHandler = () => {
-    dispatch(__editComment(comment));
+    dispatch(__editComment(commentList));
   };
   //수정하기 누르면 댓글 수정 창 출력
   const editToggleHandler = () => {
@@ -79,11 +79,11 @@ export default function Comment(props) {
           placeholder="(100자 이내로 입력해주세요)"
           type="text"
           name="comment"
-          value={comment.comment}
+          value={commentList.content}
           onChange={(event) => {
-            setComment({
-              ...comment,
-              comment: event.target.value,
+            setCommentList({
+              ...commentList,
+              content: event.target.value,
             });
           }}
           maxLength={100}
@@ -95,11 +95,11 @@ export default function Comment(props) {
         </div> */}
       </div>
       <div>
-        {props.comment?.map((comment) => {
+        {props.commentList?.map((commentList) => {
           return (
-            <div key={comment.id}>
-              <span>{comment.content}</span>
-              <button onClick={() => onDeleteButton(comment.id)}>
+            <div key={commentList.id}>
+              <span>{commentList.content}</span>
+              <button onClick={() => onDeleteButton(commentList.id)}>
                 삭제하기
               </button>
               <button onClick={editToggleHandler}>수정하기</button>
@@ -113,11 +113,11 @@ export default function Comment(props) {
             placeholder="(100자 이내로 입력해주세요)"
             type="text"
             name="comment"
-            value={comment.comment}
+            value={commentList.content}
             onChange={(event) => {
-              setComment({
-                ...comment,
-                comment: event.target.value,
+              setCommentList({
+                ...commentList,
+                content: event.target.value,
               });
             }}
             maxLength={100}

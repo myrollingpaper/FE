@@ -93,7 +93,7 @@ export const commentSlice = createSlice({
     },
     [__getComment.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.comments = action.payload;
+      state.commentList = action.payload;
       alert(action.payload.msg);
     },
     [__getComment.rejected]: (state, action) => {
@@ -108,7 +108,7 @@ export const commentSlice = createSlice({
     },
     [__addComment.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.comments = action.payload;
+      state.commentList = action.payload;
       alert(action.payload.msg);
     },
     [__addComment.rejected]: (state, action) => {
@@ -123,7 +123,7 @@ export const commentSlice = createSlice({
     },
     [__deleteComment.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.comments = state.comments.filter(
+      state.commentList = state.comments.filter(
         (item) => item.commentid !== action.payload.id
       );
       alert(action.payload.msg);

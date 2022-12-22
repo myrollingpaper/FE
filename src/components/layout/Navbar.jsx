@@ -13,9 +13,6 @@ const Navbar = () => {
   const goToLogin = () => {
     navigate("/login");
   };
-  const goToBoards = () => {
-    navigate("/boards");
-  };
 
   return (
     <NavBoxWrap>
@@ -30,11 +27,7 @@ const Navbar = () => {
           {/* <div>로그인</div> */}
         </LoginBox>
       </FirstNavBox>
-      <NavArea>
-        <NavBox>
-          <NavList onClick={goToBoards}>정보방</NavList>
-        </NavBox>
-      </NavArea>
+      <NavArea></NavArea>
     </NavBoxWrap>
   );
 };
@@ -60,19 +53,19 @@ const LoginBox = styled.div`
   cursor: pointer;
 `;
 
-const NavBox = styled.div`
-  display: flex;
-  list-style-type: none;
-`;
+// const NavBox = styled.div`
+//   display: flex;
+//   list-style-type: none;
+// `;
 
-const NavList = styled.div`
-  padding: 10px;
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-    text-decoration-color: #8f1919;
-  }
-`;
+// const NavList = styled.div`
+//   padding: 10px;
+//   cursor: pointer;
+//   &:hover {
+//     text-decoration: underline;
+//     text-decoration-color: #8f1919;
+//   }
+// `;
 
 const NavArea = styled.div`
   display: flex;

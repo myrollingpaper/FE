@@ -90,7 +90,7 @@ export const __userSignUp = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload);
     try {
-      const data = await instance.post(`users/signup`, payload.obj);
+      const data = await instance.post(`/users/signup`, payload.obj);
       console.log(data.data.msg);
       return thunkAPI.fulfillWithValue({
         msg: data.data.msg,

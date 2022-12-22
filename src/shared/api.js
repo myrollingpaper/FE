@@ -34,7 +34,6 @@ const errorInterceptor = (error) => {
     localStorage.removeItem("token");
     window.location.replace("/login");
   }
-
   return Promise.reject(error);
 };
 

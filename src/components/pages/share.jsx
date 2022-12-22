@@ -1,46 +1,30 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { __getPost } from "../../redux/modules/todosSlice";
 import Card from "./Card";
-
 //조회 할려면 dispatch get을 가져와서 id를 map을 돌려서
 //뿌려줘야된다.
 export default function Share() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoading, error, posts } = useSelector((state) => state.posts);
-  const { isLogin } = useSelector(state => state.login);
-
+  const { isLogin } = useSelector((state) => state.login);
   useEffect(() => {
     dispatch(__getPost());
   }, [dispatch]);
-
-  if (isLoading) {
-    return <div>로딩 중....</div>;
-  }
-  if (error) {
-    return <div>{error.message}</div>;
-  }
-
   const locationHandler = (id) => {
     navigate(`/${id}`);
   };
-
   const routeToWrite = () => {
-    console.log(isLogin);
-    if(isLogin) navigate('/write');
-    else alert('로그인을해야 작성이 가능합니다.');
-    
-  }
-
+    if (isLogin === true) navigate("/write");
+    else alert("로그인을해야 작성이 가능합니다.");
+  };
   return (
-    <Container>
-      <P>공유 페이지</P>
+    <STContainer>
+      <StButton onClick={routeToWrite}>정보공유 작성하기</StButton>
       <StUploadContainer>
-        <button onClick={routeToWrite} >작성하기</button>
         <div className="upload_list_container">
           {posts?.map((todo) => {
             return (
@@ -51,32 +35,50 @@ export default function Share() {
           })}
         </div>
       </StUploadContainer>
-    </Container>
+    </STContainer>
   );
 }
-
-const Container = styled.div`
-  display: flex;
-`;
-
-const P = styled.p`
-  font-size: 16px;
-  font-weight: bold;
-  display: inline-block;
-  margin: 0;
-  text-align: center;
-  letter-spacing: 0.1px;
-  line-height: 1.5;
-  color: black;
-`;
-
-const StUploadContainer = styled.div`
+const STContainer = styled.div`
+  background-color: #ffcbc4;
   display: flex;
   flex-direction: column;
-  gap: 10px 0;
+  justify-content: center;
+  align-items: center;
+  border-radius: 32px;
+  margin: auto;
+  width: 100%;
+  min-height: 700px;
+`;
+// 작성하기 버튼
+const StButton = styled.button`
+  background-color: #fc6868;
+  color: white;
+  font-weight: 700;
+  font-size: 25px;
+  width: 50%;
+  min-height: 50px;
+  margin-bottom: 50px;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+`;
+const StUploadContainer = styled.div`
+  background-color: #ffffff;
+  width: 80%;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
   .upload_list_container {
+    /* background-color: antiquewhite; */
+    height: 300px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 10px;
+    padding: 10%;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    overflow: auto;
+    div:last-child {
+      margin-bottom: 50px;
+    }
   }
 `;
